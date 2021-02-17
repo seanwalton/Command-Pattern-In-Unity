@@ -10,6 +10,7 @@ public class PlayerBehaviour : MonoBehaviour, IEntity
     [SerializeField] float speed;
 
     private CommandProcessor _commandProcessor;
+
     private Vector2 playerInput;
     private bool undoActive;
     private bool playerMoving;
@@ -30,11 +31,12 @@ public class PlayerBehaviour : MonoBehaviour, IEntity
     {
         if (undoActive)
         {
-            _commandProcessor.Undo();
+            _commandProcessor.UndoCommand();
         }
         else if (playerMoving)
         {
-            _commandProcessor.ExecuteCommand(new MoveCommand(this, playerInput, speed * Time.deltaTime));
+            _commandProcessor.ExecuteCommand(new MoveCommand(this, Time.timeSinceLevelLoad, 
+                playerInput, speed * Time.deltaTime));
         }
         
     }

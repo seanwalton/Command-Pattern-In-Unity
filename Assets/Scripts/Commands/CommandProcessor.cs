@@ -12,14 +12,17 @@ public class CommandProcessor : MonoBehaviour
     {
         _commands.Add(command);
         command.Execute();
+
+        
         _currentCommandIndex = _commands.Count - 1;
     }
 
-    public void Undo()
+    public void UndoCommand()
     {
         if (_currentCommandIndex < 0) return;
 
         _commands[_currentCommandIndex].Undo();
+        Debug.Log("Undo at: " + _commands[_currentCommandIndex].GetTime());
         _commands.RemoveAt(_currentCommandIndex);
         _currentCommandIndex--;
     }
